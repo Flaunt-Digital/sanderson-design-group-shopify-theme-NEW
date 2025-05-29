@@ -1,0 +1,352 @@
+<section
+  id="MainMadeToMeasureProduct-{{ section.id }}"
+  class="madetomeasureproduct section-{{ section.id }}-padding"
+  data-section="{{ section.id }}"
+>
+  {{ 'section-main-made-to-measure-product.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'made-to-measure-product.js' | asset_url }}" defer="defer"></script>
+
+  <!-- Swiper carousel -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+  <div class="m2m-inner">
+    <input id="product_id" name="product_id" type="hidden" value="{{ product.id }}" />
+
+    {% for tag in product.tags %}
+      {% if tag contains 'm2m:yes' %}
+        {% assign m2m_product = true %}
+      {% endif %}
+
+      {% if tag contains 'm2m_fabric' %}
+        {% assign m2m_fabric = tag | remove: 'm2m_fabric:' | replace: '_', ' ' | upcase %}
+        <input id="m2m_fabric" name="fabric" type="hidden" value="{{ tag | remove: 'm2m_fabric:' | replace: '_', ' ' | upcase }}" readonly />     
+      {% endif %}  
+
+      {% if tag contains 'm2m_type' %}
+        {% assign m2m_type = tag | remove: 'm2m_type:' | downcase %}
+      {% endif %}
+    {% endfor %}
+
+    <input id="m2m_type" name="type" type="hidden" value="{{ m2m_type | default: 'unknown' }}" readonly />     
+
+    <div id="m2m-header" class="hidden">
+      <div class="product-title">
+        <div class="outer-container">
+          <h4>{{ product.title | escape }}</h4>
+          <div class="price {% if customer.metafields.b2b.price_toggle == 'Off' %} hide-pricing{% endif %}"><span class="total-price" title="{% if customer.metafields.b2b.price_multiplier and customer.metafields.b2b.price_multiplier != '1' %}Retail Price (Inc. VAT){% else %}Trade Price (Ex. VAT){% endif %}">TBC</span></div>
+        </div>
+      </div>
+
+      <div class="product-details">
+        <div class="outer-container">
+          {{ product.featured_media.preview_image | image_url: width: 120 | image_tag: loading: 'lazy' }}
+
+          <div class="product-breakdown">
+            <ol class="type-specific curtains-only">
+              <li><span class="chosen-measurements">{{ section.settings.min_width_curtains }} x {{ section.settings.min_height_curtains }} cm / Pair</span></li>
+              <li class="hidden"><span class="chosen-heading">TBC</span></li>
+              <li class="hidden"><span class="chosen-eyelet">TBC</span></li>
+              <li class="hidden"><span class="chosen-lining">TBC</span></li>
+              <li class="hidden"><span class="chosen-accessories">No accessories</span></li>
+            </ol>
+
+            <ol class="type-specific blinds-only">
+              <li><span class="chosen-measurements">{{ section.settings.min_width_blinds }} x {{ section.settings.min_height_blinds }} cm / Exact</span></li>
+              <li class="hidden"><span class="chosen-lining">TBC</span></li>
+              <li class="hidden"><span class="chosen-style">Style: Waterfall</span></li>
+              <li class="hidden"><span class="chosen-fixing">Fixing: Right, Chain colour: Silver</span></li>
+              <li class="hidden"><span class="chosen-accessories">No accessories</span></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% render 'm2m-intro-step', step_num: 0, m2m_product: m2m_product, m2m_fabric: m2m_fabric, m2m_type: m2m_type %}
+    {% render 'm2m-measurements-step', step_num: 1 %}
+
+    <div class="type-specific curtains-only">
+      {% render 'm2m-heading-step', step_num: 2 %}
+      {% render 'm2m-eyelet-step', step_num: 3 %}
+      {% render 'm2m-lining-step', step_num: 4 %}
+    </div>
+
+    <div class="type-specific blinds-only">
+      {% render 'm2m-lining-step', step_num: 2 %}
+      {% render 'm2m-style-step', step_num: 3 %}
+      {% render 'm2m-fixing-step', step_num: 4 %}
+    </div>
+    
+    {% render 'm2m-accessories-step', step_num: 5 %}
+    {% render 'm2m-confirm-step', step_num: 6 %}
+
+    <div id="m2m-footer" class="hidden">
+      <div class="buttons-container">
+        <div class="m2m-content">
+          <div class="prev-next-buttons">
+            <button class="button m2m-back">Back</button>
+            <button class="button m2m-next" onclick="refreshM2MOptions();">Next</button>
+          </div>
+        </div>
+      </div>
+
+      <ol class="type-specific curtains-only">
+        <li class="active m2m-nav" data-step-nav="1">Size</li>
+        <li class="m2m-nav" data-step-nav="2">Heading</li>
+        <li class="m2m-nav" data-step-nav="3">Eyelet</li>
+        <li class="m2m-nav" data-step-nav="4">Lining</li>
+        <li class="m2m-nav" data-step-nav="5">Accessories</li>
+      </ol>
+
+      <ol class="type-specific blinds-only">
+        <li class="active m2m-nav" data-step-nav="1">Size</li>
+        <li class="m2m-nav" data-step-nav="2">Lining</li>
+        <li class="m2m-nav" data-step-nav="3">Style</li>
+        <li class="m2m-nav" data-step-nav="4">Fixing</li>
+        <li class="m2m-nav" data-step-nav="5">Accessories</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "url": {{ request.origin | append: product.url | json }},
+    {% if seo_media -%}
+      "image": [
+        {{ seo_media | image_url: width: 1920 | prepend: "https:" | json }}
+      ],
+    {%- endif %}
+    "description": {{ product.description | strip_html | json }},
+    {% if product.selected_or_first_available_variant.sku != blank -%}
+      "sku": {{ product.selected_or_first_available_variant.sku | json }},
+    {%- endif %}
+    "brand": {
+      "@type": "Brand",
+      "name": {{ product.vendor | json }}
+    },
+    "offers": [
+      {%- for variant in product.variants -%}
+        {
+          "@type" : "Offer",
+          {%- if variant.sku != blank -%}
+            "sku": {{ variant.sku | json }},
+          {%- endif -%}
+          {%- if variant.barcode.size == 12 -%}
+            "gtin12": {{ variant.barcode }},
+          {%- endif -%}
+          {%- if variant.barcode.size == 13 -%}
+            "gtin13": {{ variant.barcode }},
+          {%- endif -%}
+          {%- if variant.barcode.size == 14 -%}
+            "gtin14": {{ variant.barcode }},
+          {%- endif -%}
+          "availability" : "http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+          "price" : {{ variant.price | divided_by: 100.00 | json }},
+          "priceCurrency" : {{ cart.currency.iso_code | json }},
+          "url" : {{ request.origin | append: variant.url | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Made To Measure Product",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Curtains"
+    },
+    {
+      "type": "number",
+      "id": "min_width_curtains",
+      "default": 80,
+      "label": "Min width"
+    },
+    {
+      "type": "number",
+      "id": "max_width_curtains",
+      "default": 500,
+      "label": "Max width"
+    },
+    {
+      "type": "number",
+      "id": "min_height_curtains",
+      "default": 50,
+      "label": "Min height"
+    },
+    {
+      "type": "number",
+      "id": "max_height_curtains",
+      "default": 500,
+      "label": "Max height"
+    },
+    {
+      "type": "header",
+      "content": "Blinds"
+    },
+    {
+      "type": "number",
+      "id": "min_width_blinds",
+      "default": 40,
+      "label": "Min width"
+    },
+    {
+      "type": "number",
+      "id": "max_width_blinds",
+      "default": 240,
+      "label": "Max width"
+    },
+    {
+      "type": "number",
+      "id": "min_height_blinds",
+      "default": 40,
+      "label": "Min height"
+    },
+    {
+      "type": "number",
+      "id": "max_height_blinds",
+      "default": 210,
+      "label": "Max height"
+    },
+    {
+      "type": "header",
+      "content": "Measurements"
+    },
+    {
+      "type": "text",
+      "id": "measurements_help",
+      "label": "Measurements help"
+    },
+    {
+      "type": "header",
+      "content": "Lining"
+    },
+    {
+      "type": "text",
+      "id": "lining_help",
+      "label": "Lining help"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "text",
+      "id": "style_help",
+      "label": "Style help"
+    },
+    {
+      "type": "header",
+      "content": "Fixing"
+    },
+    {
+      "type": "text",
+      "id": "fixing_help",
+      "label": "Fixing help"
+    },
+    {
+      "type": "header",
+      "content": "Accessories"
+    },
+    {
+      "type": "text",
+      "id": "accessories_help",
+      "label": "Accessories help"
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  var options_data = {
+    'heading': {
+      'Double Rolled Eyelets': {
+        'image': '{{ "m2m-icon-double-rolled-eyelets.png" | asset_url }}',
+        'description': ''
+      },
+      'Pencil Pleat': {
+        'image': '{{ "m2m-icon-pencil-pleat.png" | asset_url }}',
+        'description': ''
+      },
+      'Double Pinch Pleat': {
+        'image': '{{ "m2m-icon-double-pinch-pleat.png" | asset_url }}',
+        'description': ''
+      },
+      'Triple Pinch Pleat': {
+        'image': '{{ "m2m-icon-triple-pinch-pleat.png" | asset_url }}',
+        'description': ''
+      },
+      'S-Wave': {
+        'image': '{{ "m2m-icon-s-wave.png" | asset_url }}',
+        'description': ''
+      }
+    },
+    'eyelet': {
+      'Antique Brass (40mm)': {
+        'image': '{{ "m2m-icon-40mm-antique-brass.webp" | asset_url }}',
+        'description': ''
+      },
+      'Black (40mm)': {
+        'image': '{{ "m2m-icon-40mm-black.png" | asset_url }}',
+        'description': ''
+      },
+      'Chrome (40mm)': {
+        'image': '{{ "m2m-icon-40mm-chrome-zinc.webp" | asset_url }}',
+        'description': ''
+      },
+      'Gunmetal  (40mm)': {
+        'image': '{{ "m2m-icon-40mm-gunmetal.png" | asset_url }}',
+        'description': ''
+      },
+      'Nickel (40mm)': {
+        'image': '{{ "m2m-icon-40mm-nickel.webp" | asset_url }}',
+        'description': ''
+      },
+      'Polished Brass (40mm)': {
+        'image': '{{ "m2m-icon-40mm-polished-brass.png" | asset_url }}',
+        'description': ''
+      },
+      'Satin Nickel (40mm)': {
+        'image': '{{ "m2m-icon-40mm-satin-nickel.png" | asset_url }}',
+        'description': ''
+      }
+    },
+    'lining': {
+      'Thermal Blackout': {
+        'image': '{{ "m2m-icon-buckingham-blackout---m22---ivory.png" | asset_url }}',
+        'description': ''
+      },
+      'Bonded Interlining': {
+        'image': '{{ "m2m-icon-interlining---345fl---ivory.png" | asset_url }}',
+        'description': ''
+      },
+      'Cotton Sateen (standard)': {
+        'image': '{{ "m2m-icon-sherwood-satin---345---pale-ivory.webp" | asset_url }}',
+        'description': ''
+      },
+      'Unlined': {
+        'image': '{{ "m2m-icon-unlined.png" | asset_url }}',
+        'description': ''
+      }
+    },
+    'accessories': {
+      'Tie backs': {
+        'image': '{{ "m2m-icon-tie-backs.png" | asset_url }}',
+        'description': ''
+      },
+      'Cushions': {
+        'image': '{{ "m2m-icon-cushions.png" | asset_url }}',
+        'description': ''
+      }
+    }
+  };
+</script>

@@ -1,0 +1,39 @@
+{% if product.metafields.feature.icon_1 != blank %}
+    {{ 'product-features.css' | asset_url | stylesheet_tag }}
+
+    <div class="product__features">
+        <div class="product__description-feature">
+            {% if product.metafields.feature.icon_image_1 != blank %}
+                <img src="{{ product.metafields.feature.icon_image_1 }}" alt="{{ product.metafields.feature.icon_1 }}" width="40" height="40">
+            {% endif %}
+            {{ product.metafields.feature.icon_1 }}
+        </div>
+
+        {% if product.metafields.feature.icon_2 != blank %}
+            <div class="product__description-feature">
+                {% if product.metafields.feature.icon_image_2 != blank %}
+                    <img src="{{ product.metafields.feature.icon_image_2 }}" alt="{{ product.metafields.feature.icon_2 }}" width="40" height="40">
+                {% endif %}
+                {{ product.metafields.feature.icon_2 }}
+            </div>
+        {% endif %}
+
+        {% if product.metafields.feature.icon_3 != blank %}
+            <div class="product__description-feature">
+                {% if product.metafields.feature.icon_image_3 != blank %}
+                    <img src="{{ product.metafields.feature.icon_image_3 }}" alt="{{ product.metafields.feature.icon_3 }}" width="40" height="40">
+                {% endif %}
+                {{ product.metafields.feature.icon_3 }}
+            </div>
+        {% endif %}
+
+        {% if product.metafields.feature.icon_4 != blank %}
+            <div class="product__description-feature">
+                {% if product.metafields.feature.icon_image_4 != blank %}
+                    <img src="{{ product.metafields.feature.icon_image_4 }}" alt="{{ product.metafields.feature.icon_4 }}" width="40" height="40">
+                {% endif %}
+                {{ product.metafields.feature.icon_4 }}
+            </div>
+        {% endif %}
+    </div>
+{% endif %}

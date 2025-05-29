@@ -1,0 +1,22 @@
+.product__features {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    color: rgba(var(--color-foreground), 0.75);
+}
+
+.product__features .product__description-feature {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.product__features .product__description-feature:last-of-type {
+    margin-right: 0;
+}
+
+.product__features .product__description-feature img {
+    margin-right: 0.5rem;
+    width: 40px;
+}

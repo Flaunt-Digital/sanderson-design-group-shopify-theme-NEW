@@ -1,0 +1,10 @@
+<div class="cta-block_request-an-account{% if template == 'cart' %} cart-request-account{% endif %}">
+    {% if template == 'cart' %}
+        <h2>Login Required</h2>
+        <p>Please login to view your basket.</p>
+    {% elsif template == 'product' %}
+        <h2>Login Required</h2>
+    {% endif %}
+    {% assign redirect_url = canonical_url | remove: shop.url %}
+    <a href='{{ routes.account_login_url }}?return_url={{ redirect_url }}' class='button'>Login</a>
+</div>
