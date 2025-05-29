@@ -220,3 +220,284 @@ cart-items {
     gap: 1rem;
   }
 }
+
+#main-cart-footer .order-reference {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+@media only screen and (max-width: 750px){
+  #main-cart-footer .order-reference {
+    text-align: center;
+  }
+}
+
+#main-cart-footer .order-reference .form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+@media only screen and (max-width: 750px){
+  #main-cart-footer .order-reference .form {
+      justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 375px){
+  #main-cart-footer .order-reference .form {
+      flex-wrap: wrap;
+  }
+}
+
+#main-cart-footer .order-reference .form > * {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#main-cart-footer .order-reference .form #customer-order-reference {
+  min-height: 30px;
+  min-width: 100px;
+  max-width: 250px;
+  padding: 10px;
+  width: 100%;
+  text-align: right;
+}
+
+@media only screen and (max-width: 750px){
+  #main-cart-footer .order-reference .form #customer-order-reference {
+    text-align: center;
+  }
+}
+
+#main-cart-footer .terms-conditions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+}
+
+@media only screen and (max-width: 750px){
+  #main-cart-footer .terms-conditions {
+      justify-content: center;
+  }
+}
+
+#main-cart-footer .terms-conditions input {
+  margin-right: 1rem;
+  margin-bottom: 0.5rem
+}
+
+#main-cart-footer .terms-conditions label {
+  font-weight: unset;
+}
+
+#main-cart-footer .terms-conditions p {
+  margin: 0;
+}
+
+#main-cart-footer .terms-conditions a {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+#main-cart-footer input[name=checkout].disabled {
+  cursor: not-allowed;
+  color: #666;
+}
+
+/* T&C popup */
+
+.tc-popup-modal {
+  box-sizing: border-box;
+  opacity: 0;
+  position: fixed;
+  visibility: hidden;
+  z-index: -1;
+  margin: 0 auto;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+}
+
+.tc-popup-modal[open] {
+  opacity: 1;
+  visibility: visible;
+  z-index: 101;
+}
+
+.tc-popup-modal__content {
+  border-radius: var(--popup-corner-radius);
+  background: #d4d4d4;
+  overflow: auto;
+  height: 100%;
+  margin: 0 auto;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  position: absolute;
+  top: 0;
+  padding: 0 1.5rem 0 3rem;
+  border-color: rgba(var(--color-foreground), var(--popup-border-opacity));
+  border-style: solid;
+  border-width: var(--popup-border-width);
+  box-shadow: var(--popup-shadow-horizontal-offset) var(--popup-shadow-vertical-offset) var(--popup-shadow-blur-radius) rgba(var(--color-shadow), var(--popup-shadow-opacity));
+}
+
+.tc-popup-modal__content.focused {
+  box-shadow: 0 0 0 0.3rem rgb(var(--color-background)),
+  0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3),
+  var(--popup-shadow-horizontal-offset) var(--popup-shadow-vertical-offset) var(--popup-shadow-blur-radius) rgba(var(--color-shadow), var(--popup-shadow-opacity));
+}
+
+.tc-popup-modal__content:focus-visible{
+  box-shadow: 0 0 0 0.3rem rgb(var(--color-background)),
+  0 0 0.5rem 0.4rem rgba(var(--color-foreground), 0.3),
+  var(--popup-shadow-horizontal-offset) var(--popup-shadow-vertical-offset) var(--popup-shadow-blur-radius) rgba(var(--color-shadow), var(--popup-shadow-opacity));
+}
+
+@media screen and (min-width: 750px) {
+  .tc-popup-modal__content {
+    padding-right: 1.5rem;
+    padding: 0 3rem;
+  }
+
+  .tc-media-modal__dialog .global-media-settings--no-shadow {
+    overflow: visible !important;
+  }
+}
+
+.tc-popup-modal__content img {
+  max-width: 100%;
+}
+
+@media screen and (max-width: 749px) {
+  .tc-popup-modal__content table {
+    display: block;
+    max-width: fit-content;
+    overflow-x: auto;
+    white-space: nowrap;
+    margin: 0;
+  }
+
+  .tc-media-modal__dialog .global-media-settings,
+  .tc-media-modal__dialog .global-media-settings video,
+  .tc-media-modal__dialog .global-media-settings model-viewer,
+  .tc-media-modal__dialog .global-media-settings iframe,
+  .tc-media-modal__dialog .global-media-settings img {
+    border: none;
+    border-radius: 0;
+  }
+}
+
+.tc-popup-modal__opener {
+  display: none;
+}
+
+.tc-popup-modal__button {
+  font-size: 1.6rem;
+  padding-right: 1.3rem;
+  padding-left: 0;
+  height: 4.4rem;
+  text-underline-offset: 0.3rem;
+  text-decoration-thickness: 0.1rem;
+  transition: text-decoration-thickness var(--duration-short) ease;
+}
+
+.tc-popup-modal__button:hover {
+  text-decoration-thickness: 0.2rem;
+}
+
+.tc-popup-modal__content-info {
+  background-color: #fff;
+  width: 70%;
+  height: 80%;
+  padding: 4.4rem;
+  margin: 0 auto;
+  margin-top: 5rem;
+  overflow: auto;
+}
+
+@media screen and (max-width: 749px) {
+  .tc-popup-modal__content-info {
+    width: 90%;
+  }
+}
+
+.tc-popup-modal__content-info h2 {
+  margin-bottom: 1rem;
+}
+
+.tc-popup-modal__content-info > * {
+  height: auto;
+  margin: 0 auto;
+  max-width: 100%;
+  width: 100%;
+}
+
+@media screen and (max-width: 749px) {
+  .tc-popup-modal__content-info > * {
+    max-height: 100%;
+  }
+}
+
+.tc-popup-modal__content-info .tc-scroll-prompt {
+  background-color: rgb(var(--color-base-accent-2));
+  color: #FFF;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: block;
+  width: fit-content;
+  padding: 1rem 2rem;
+  border-radius: 3px;
+  text-align: center;
+  opacity: 1;
+  transition: .5s ease-in-out;
+}
+
+.tc-popup-modal__content-info .tc-scroll-prompt.scrolled {
+  opacity: 0;
+  transition: .5s ease-in-out;
+}
+
+.tc-popup-modal__toggle {
+  background-color: rgb(var(--color-background));
+  border: 0.1rem solid rgba(var(--color-foreground), 0.1);
+  border-radius: 50%;
+  color: rgba(var(--color-foreground), 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: sticky;
+  padding: 1.2rem;
+  z-index: 2;
+  top: 1.5rem;
+  width: 4rem;
+  margin: 0 0 0 auto;
+}
+
+.tc-popup-modal__toggle:hover {
+  color: rgba(var(--color-foreground), 0.75);
+}
+
+.tc-popup-modal__toggle .icon {
+  height: auto;
+  margin: 0;
+  width: 2.2rem;
+}
+
+#ModalClose-TC {
+  width: auto;
+  margin: 0 auto;
+}
+
+.cart-request-account {
+  text-align: center;
+}

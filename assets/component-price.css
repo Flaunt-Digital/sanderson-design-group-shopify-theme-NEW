@@ -10,6 +10,10 @@
   vertical-align: top;
 }
 
+.price .pricing.hide-pricing {
+  display: none;
+}
+
 .price.price--unavailable {
   visibility: hidden;
 }

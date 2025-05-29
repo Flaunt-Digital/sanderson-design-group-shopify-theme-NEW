@@ -468,7 +468,6 @@ table:not([class]) th {
 a:empty,
 ul:empty,
 dl:empty,
-div:empty,
 section:empty,
 article:empty,
 p:empty,
@@ -1215,7 +1214,7 @@ button.shopify-payment-button__button--unbranded {
   justify-content: center;
   align-items: center;
   border: 0;
-  padding: 0 3rem;
+  padding: 1rem 3rem;
   cursor: pointer;
   font: inherit;
   font-size: 1.5rem;
@@ -2320,7 +2319,8 @@ input[type='checkbox'] {
 }
 
 .shopify-section-header-hidden {
-  top: calc(-1 * var(--header-height));
+  opacity: 0;
+  transition: .5s ease-in-out;
 }
 
 .shopify-section-header-hidden.menu-open {
@@ -3594,4 +3594,104 @@ details-disclosure > details {
   100% {
     transform: translateX(100%) scaleX(0);
   }
+}
+
+/* Algolia overrides */
+.ais-facets .ais-SearchBox-form {
+  display: flex;
+  margin-bottom: 1em;
+}
+
+.ais-facets .ais-SearchBox-form .ais-SearchBox-input {
+  background: #eee;
+  padding-left: 8px !important;
+}
+
+.ais-facets .ais-SearchBox-form .ais-SearchBox-submit {
+  border: 0;
+}
+
+ol.ais-Hits-list {
+  padding: 0;
+}
+
+/* Price settings */
+#show-price-settings {
+  cursor: pointer;
+  font-size: 24px;
+  margin-right: 8px;
+}
+
+#price-settings {
+  position: fixed;
+  top: 0;
+  right: -100vw;
+  width: 100%;
+  max-width: 260px;
+  height: 100vh;
+  overflow: auto;
+  background-color: #EBEBEB;
+  z-index: 100;
+  transition: 0.5s all;
+}
+
+#price-settings.show-price-settings {
+  right: 0;
+  transition: 0.5s all;
+}
+
+#price-settings .header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  margin-top: 4rem;
+}
+
+#price-settings .header-container .close-settings {
+  text-align: left;
+  font-size: 20px;
+}
+
+#price-settings .header-container .close-settings a {
+  cursor: pointer;
+}
+
+#price-settings .header-container .settings-header h4 {
+  margin: 0;
+}
+
+#price-settings .content-container .settings-form {
+  padding: 10px 20px;
+}
+
+#price-settings .content-container .settings-form .settings-section {
+  margin-bottom: 20px;
+}
+
+#price-settings .content-container .settings-form .settings-section #price-multiplier {
+  height: 40px;
+  border-radius: 0;
+  border: 2px solid #000;
+}
+
+#price-settings .content-container .settings-form .settings-section .section-wrapper #reset-price-settings {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+#price-settings .content-container .settings-form .settings-section .section-wrapper #save-price-settings {
+  width: 100%;
+}
+
+.hide-pricing {
+  display: none;
+}
+
+.price-type,
+.ais-page .ais-hit--details .price-type {
+  font-size: 9px;
+  font-weight: bold;
+  margin: 5px 0;
+  color: #888;
 }

@@ -211,6 +211,10 @@ cart-remove-button .icon-remove {
   margin: 0;
 }
 
+.product-option .pricing.hide-pricing {
+  display: none;
+}
+
 .cart-items thead th {
   text-transform: uppercase;
 }

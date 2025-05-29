@@ -4,6 +4,10 @@
   align-items: flex-end;
 }
 
+.totals.hide-pricing {
+  display: none;
+}
+
 .totals > * {
   font-size: 1.6rem;
   margin: 0;

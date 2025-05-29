@@ -292,3 +292,33 @@ if (!customElements.get('cart-note')) {
     }
   );
 }
+
+// Basket T&Cs
+var basketCheckbox = document.querySelector("input[name=basket-tc]");
+var basketSubmit = document.querySelector("#checkout");
+
+if (basketCheckbox !== null) {
+  basketCheckbox.addEventListener('change', function() {
+    if (this.checked) {
+      $(basketSubmit).removeClass('disabled');
+      $(basketSubmit).prop('disabled', false);
+      $('#CartPopup-TC').click();
+    } else {
+      $(basketSubmit).addClass('disabled');
+      $(basketSubmit).prop('disabled', true);
+    }
+  });
+}
+
+// Basket T&Cs scroll prompt
+$('.tc-popup-modal__content-info').scroll(function() {
+  var modalScrollTop = $('.tc-popup-modal__content-info').scrollTop();
+  var modalInnerHeight = $('.tc-popup-modal__content-info').innerHeight();
+
+  // Hide scroll prompt once user scrolls beyond modal height
+  if (modalScrollTop >= modalInnerHeight) {
+    $('.tc-scroll-prompt').addClass('scrolled');
+  } else {
+    $('.tc-scroll-prompt').removeClass('scrolled');
+  }
+});

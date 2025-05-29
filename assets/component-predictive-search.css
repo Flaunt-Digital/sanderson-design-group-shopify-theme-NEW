@@ -1,5 +1,5 @@
 .predictive-search {
-  display: none;
+  display: none !important;
   position: absolute;
   top: calc(100% + 0.1rem);
   left: -0.1rem;
