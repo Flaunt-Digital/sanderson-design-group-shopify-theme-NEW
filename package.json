@@ -1,0 +1,11 @@
+{
+  "name": "clarke-and-clarke-shopify-theme",
+  "version": "1.0.0",
+  "devDependencies": {
+    "gulp-sass": "^5.1.0",
+    "sass": "^1.60.0"
+  },
+  "dependencies": {
+    "gulp": "^4.0.2"
+  }
+}
