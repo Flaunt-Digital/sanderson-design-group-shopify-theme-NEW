@@ -1,0 +1,15 @@
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+{{ 'component-algolia-swatch.css' | asset_url | stylesheet_tag }}
+
+<div class="algolia-shopify-instantsearch page-width"></div>
+
+{% schema %}
+{
+  "name": "Algolia product grid",
+  "templates": ["collection"],
+  "presets": [{
+    "name": "Algolia product grid",
+    "category": "Text"
+  }]
+}
+{% endschema %}
