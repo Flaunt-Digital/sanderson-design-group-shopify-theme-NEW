@@ -1,0 +1,44 @@
+  <div id="m2m-step-lining" class="m2m-step hidden" data-step="{{ step_num }}">
+    <div class="m2m-content">
+      {% if section.settings.accessories_help != blank %}
+        <span class="help-icon">i</span>
+        <div class="help-content">{{ section.settings.accessories_help }}</div>
+      {% endif %}
+
+      <h3>Accessories</h3>
+      <p>Complete the look by adding bespoke accessories.</p>
+    </div>
+
+    <ul class="choice-block multi-choice-block
+    {% if m2m_type == 'blinds' %}single-choice{% endif %}" id="accessories-choice" data-default="No accessories">
+      <li id="tiebacks" class="type-specific curtains-only">
+        <div class="inner-li">
+          <h4>Tie backs</h4>
+          <img src="{{ 'm2m-icon-tie-backs.png' | asset_url }}" />
+          <div id="tiebacks-options-container" class="hidden">
+            <p>Choose an option:</p>
+            <select id="tiebacks-options" onchange="updateAccessories();"></select>
+          </div>          
+        </div>
+      </li>
+
+      <li id="cushions">
+        <div class="inner-li">
+          <h4>Cushions</h4>
+          <img src="{{ 'm2m-icon-cushions.png' | asset_url }}" />
+          <div id="cushions-options-container" class="hidden">
+            <p>Choose an option:</p>
+            <select id="cushions-options" onchange="updateAccessories();"></select>
+            <p>Choose a quantity:</p>
+            <select id="cushions-qty" onchange="updateAccessories();">
+              <option value="2">1 pair</option>
+              <option value="4">2 pairs</option>
+              <option value="6">3 pairs</option>
+              <option value="8">4 pairs</option>
+              <option value="10">5 pairs</option>
+            </select>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>

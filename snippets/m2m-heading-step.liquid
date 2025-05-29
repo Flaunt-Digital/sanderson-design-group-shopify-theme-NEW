@@ -1,0 +1,22 @@
+  <div id="m2m-step-heading" class="m2m-step hidden" data-step="{{ step_num }}">
+    <div class="m2m-content">
+      {% if section.settings.heading_help != blank %}
+        <span class="help-icon">i</span>
+        <div class="help-content">{{ section.settings.heading_help }}</div>
+      {% endif %}
+
+      <h3>Heading</h3>
+      <p>Select the type of heading you require.</p>
+    </div>
+
+    <ul class="choice-block scroll-x" id="heading-choice"></ul>
+
+    <div id="wave-specific" class="m2m-content hidden">
+      <p>Wave size:
+        <select id="wave-size" onchange="updateHeading();">
+          <option value="60mm" selected>60mm</option>
+          <option value="80mm">80mm</option>
+        </select>
+      </p>
+    </div>
+  </div>

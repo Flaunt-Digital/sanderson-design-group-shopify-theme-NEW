@@ -1,0 +1,48 @@
+  <div id="m2m-step-confirm" class="m2m-step hidden" data-step="{{ step_num }}">
+
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        {% for image in product.images %}
+          <div class="swiper-slide">
+            {{ image | image_url: width: 1946 | image_tag: loading: 'lazy' }}
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="swiper-pagination"></div>
+    </div>
+    
+    <div class="m2m-content">
+      <h3>{{ product.title | escape }}</h3>
+      <ol class="type-specific curtains-only">
+        <li><span class="chosen-measurements">{{ section.settings.min_width_curtains }} x {{ section.settings.min_height_curtains }} cm / Pair</span> <a class="edit-icon link link--text m2m-nav" data-step-nav="1">edit</a></li>
+        <li><span class="chosen-heading">Heading TBC</span> <a class="edit-icon link link--text m2m-nav" data-step-nav="2">edit</a></li>
+        <li><span class="chosen-eyelet">Eyelet TBC</span> <a class="edit-icon link link--text m2m-nav" data-step-nav="3">edit</a></li>
+        <li><span class="chosen-lining">Lining TBC</span> <a class="edit-icon link link--text m2m-nav" data-step-nav="4">edit</a></li>
+        <li><span class="chosen-accessories">No accessories</span> <a class="edit-icon link link--text m2m-nav" data-step-nav="5">edit</a></li>
+      </ol>
+
+      <ol class="type-specific blinds-only">
+        <li><span class="chosen-measurements">{{ section.settings.min_width_blinds }} x {{ section.settings.min_height_blinds }} cm / Exact</span> <a class="edit-icon link link--text m2m-nav" data-step-nav="1">edit</a></li>
+        <li><span class="chosen-lining">Lining TBC</span> <a class="edit-icon link link--text m2m-nav" data-step-nav="2">edit</a></li>
+        <li><span class="chosen-style">Style: Waterfall</span> <a class="edit-icon link link--text m2m-nav" data-step-nav="3">edit</a></li>
+        <li><span class="chosen-fixing">Fixing: Right, Chain colour: Silver</span> <a class="edit-icon link link--text m2m-nav" data-step-nav="4">edit</a></li>
+        <li><span class="chosen-accessories">No accessories</span> <a class="edit-icon link link--text m2m-nav" data-step-nav="5">edit</a></li>
+      </ol>
+      
+      <div class="basket-summary">
+        <div class="{% if customer.metafields.b2b.price_toggle == 'Off' %} hide-pricing{% endif %}">Total: <span class="total-price">{{ product.first_available_variant.price | money }}</span><br /><span class="price-type"></span></div>
+        <div><input type="number" min="1" max="10" name="qty" id="qty" value="1" class="ignore-js" /></div>
+        <div>
+          <button class="button" onclick="addM2MToCart();" id="m2m-add-to-cart">
+            <span>Add to bag</span>
+            <div class="loading-overlay__spinner hidden">
+              <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+              </svg>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,61 @@
+{% assign current_product = product.id %}
+{% for tag in product.tags %}
+    {% if tag contains 'm2m_sku:' %}
+        {% assign current_sku_tag = tag %}
+    {% endif %}
+{% endfor %}
+
+{% paginate collections.m2m-all.products by 1000 %}
+    {% for product in collections.m2m-all.products %}
+        {% if product.id != current_product %}
+            {% for tag in product.tags %}
+                {% if tag contains 'm2m_sku:' %}
+                    {% if tag == current_sku_tag %}
+                        {% if product.handle contains 'sample' %}
+                            <script src="{{ 'samples.js' | asset_url }}" defer="defer"></script>
+                            {% assign button_id = 'orderSample' %}
+                            {% assign button_text = shop.metafields.made_to_measure.related_sample_button_text %}
+                        {% else %}
+                            {% assign button_id = 'm2mViewProduct' %}
+                            {% assign button_text = shop.metafields.made_to_measure.related_product_button_text %}
+                        {% endif %}
+                        <div class="m2m-related-product">
+                            <div class="col-left">
+                                {%- if product.featured_image -%}
+                                    <img src="{{ product.featured_image | img_url: '200x200' }}" />
+                                {%- else -%}
+                                    {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                                    {% if settings.no_image %}
+                                        <img width="100%" class="lazyload" src="{{settings.no_image | img_url: '200x200' }}" alt="No Image Available">
+                                    {% else %}
+                                        {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                                    {% endif %}
+                                {%- endif -%}
+                            </div>
+                            <div class="col-right">
+                                <h3>{{ product.title }}</h3>
+                                <p>{% unless product.handle contains 'sample' %}From {% endunless %}{{ product.price | money }}</p>
+                                <product-form class="product-form" style="margin: 0;">
+                                    {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                                        <input type="hidden" name="id" value="{{ product.first_available_variant.id }}">
+                                        <button
+                                        type="submit"
+                                        name="add"
+                                        class="product-form__submit button button--full-width">
+                                            {{ button_text }}
+                                            <div class="loading-overlay__spinner hidden">
+                                                <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                                                    <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                                                </svg>
+                                            </div>
+                                        </button>
+                                    {%- endform -%}
+                                </product-form>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+{% endpaginate %}

@@ -1,0 +1,52 @@
+  <div id="m2m-step-lining" class="m2m-step hidden" data-step="{{ step_num }}">
+    <div class="m2m-content">
+      {% if section.settings.fixing_help != blank %}
+        <span class="help-icon">i</span>
+        <div class="help-content">{{ section.settings.fixing_help }}</div>
+      {% endif %}
+
+      <h3>Fixing</h3>
+      <p>Select which side of your blind you'd like the chain mechanism to be on.</p>
+    </div>
+
+    <ul class="choice-block" id="fixing-choice">
+      <li id="left" data-name="Left">
+        <div class="inner-li">
+          <h4>Left</h4>
+          <img src="{{ 'm2m-icon-chain-left.png' | asset_url }}" />
+        </div>
+      </li>
+      <li id="right" data-name="Right" class="selected">
+        <div class="inner-li">
+          <h4>Right</h4>
+          <img src="{{ 'm2m-icon-chain-right.png' | asset_url }}" />
+        </div>
+      </li>
+    </ul>
+
+    <div class="m2m-content colour-choice-container" id="chain-colour-container">
+      <p>Chain colour:</p>
+      <div class="chain-colour-choice colour-choice">
+        <div class="colour-option selected" onclick="selectColour(this);">
+          <div class="swatch" style="background-color: #c0c0c0;"></div>
+          <span>Silver</span>
+        </div>
+
+        <div class="colour-option" onclick="selectColour(this);">
+          <div class="swatch" style="background-color: #d4af37;"></div>
+          <span>Gold</span>
+        </div>
+
+        <div class="colour-option" onclick="selectColour(this);">
+          <div class="swatch" style="background-color: #fff;"></div>
+          <span>White</span>
+        </div>
+
+        <div class="colour-option" onclick="selectColour(this);">
+          <div class="swatch" style="background-color: #000000;"></div>
+          <span>Black</span>
+        </div>
+      </div>
+      </p>
+    </div>
+  </div>

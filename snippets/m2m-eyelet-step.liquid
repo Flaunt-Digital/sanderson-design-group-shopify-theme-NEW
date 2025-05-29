@@ -1,0 +1,17 @@
+  <div id="m2m-step-eyelet" class="m2m-step hidden" data-step="{{ step_num }}">
+    <div class="m2m-content">
+      {% if section.settings.eyelet_help != blank %}
+        <span class="help-icon">i</span>
+        <div class="help-content">{{ section.settings.eyelet_help }}</div>
+      {% endif %}
+
+      <h3>Eyelet</h3>
+      <p>Select the type of eyelet you require.</p>
+    </div>
+
+    <ul class="choice-block scroll-x" id="eyelet-choice"></ul>
+
+    <div class="m2m-content">
+      <p id="no-eyelet-choice-required" class="hidden center error">Eyelet choice not applicable for selected heading.</p>
+    </div>
+  </div>

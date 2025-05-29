@@ -1,0 +1,26 @@
+  <div id="m2m-step-style" class="m2m-step hidden" data-step="{{ step_num }}">
+    <div class="m2m-content">
+      {% if section.settings.style_help != blank %}
+        <span class="help-icon">i</span>
+        <div class="help-content">{{ section.settings.style_help }}</div>
+      {% endif %}
+
+      <h3>Style</h3>
+      <p>Tell us what style of blind you would like.</p>
+    </div>
+
+    <ul class="choice-block" id="style-choice">
+      <li id="waterfall" data-name="Waterfall" class="selected">
+        <div class="inner-li">
+          <h4>Waterfall</h4>
+          <img src="{{ 'm2m-icon-waterfall.png' | asset_url }}" />
+        </div>
+      </li>
+      <li id="stacked" data-name="Stacked">
+        <div class="inner-li">
+          <h4>Stacked</h4>
+          <img src="{{ 'm2m-icon-stacked.png' | asset_url }}" />
+        </div>
+      </li>
+    </ul>
+  </div>

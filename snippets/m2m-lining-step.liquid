@@ -1,0 +1,29 @@
+  <div id="m2m-step-lining" class="m2m-step hidden" data-step="{{ step_num }}">
+    <div class="m2m-content">
+      {% if section.settings.lining_help != blank %}
+        <span class="help-icon">i</span>
+        <div class="help-content">{{ section.settings.lining_help }}</div>
+      {% endif %}
+
+      <h3>Lining</h3>
+      <p>Select the type of lining you require.</p>
+    </div>
+
+    <ul class="choice-block scroll-x" id="lining-choice"></ul>
+
+    <div class="m2m-content colour-choice-container" id="lining-colour-container">
+      <p>Lining colour:</p>
+      <div class="lining-colour-choice colour-choice">
+        <div class="colour-option selected" onclick="selectColour(this);">
+          <div class="swatch" style="background-color: #fff;"></div>
+          <span>White</span>
+        </div>
+
+        <div class="colour-option" onclick="selectColour(this);">
+          <div class="swatch" style="background-color: #FFFFF0;"></div>
+          <span>Ivory</span>
+        </div>
+      </div>
+      </p>
+    </div>
+  </div>

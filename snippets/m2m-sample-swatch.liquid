@@ -1,0 +1,86 @@
+<script src="{{ 'm2m-sample-swatch.js' | asset_url }}" defer="defer"></script>
+
+{% assign current_product = product.id %}
+{% for tag in product.tags %}
+    {% if tag contains 'm2m_sku:' %}
+        {% assign current_sku_tag = tag %}
+    {% endif %}
+{% endfor %}
+
+{% assign sample_product = null %}
+{% assign sample_product_variant = null %}
+{% paginate collections.m2m.products by 1000 %}
+    {% for product in collections.m2m.products %}
+        {% if sample_product_variant == null and product.id != current_product %}
+            {% for tag in product.tags %}
+                {% if tag contains 'm2m_sku:' %}
+                    {% if tag == current_sku_tag %}
+                        {% if product.handle contains 'sample' %}
+                            {% assign sample_product = product %}
+                            {% assign sample_product_variant = product.first_available_variant %}
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        
+        {% if sample_product_variant != null %}
+            {% break %}
+        {% endif %}
+    {% endfor %}
+{% endpaginate %}
+
+{%- assign product_form_id = 'product-form-' | append: section.id -%}
+
+{% assign product_found = false %}
+{% for item in cart.items %}
+  {% if item.product.id == sample_product.id %}
+    {% assign product_found = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+{% if product_found == false and sample_product_variant != null %}
+    <sample-swatch>
+        {%- form 'product',
+          sample_product,
+          id: product_form_id,
+          class: 'form',
+          novalidate: 'novalidate',
+          data-type: 'add-to-cart-form'
+        -%}
+            <input
+                type="hidden"
+                name="id"
+                value="{{ sample_product_variant.id }}"
+                disabled
+            >
+            <button
+                id="{{ product_form_id }}-submit"
+                type="submit"
+                name="add"
+                class="quick-add__submit button button--full-width button--secondary sample-swatch"
+                aria-haspopup="dialog"
+                aria-labelledby="{{ product_form_id }}-submit title-{{ section.id }}-{{ sample_product_variant.id }}"
+                aria-live="polite"
+                data-sold-out-message="true"
+            >
+            </button>
+            
+            <div class="swatch-sample-overlay" data-sample-id="{{ product.first_available_variant.id }}" onclick="document.getElementById('{{product_form_id}}').submit();">
+                <span>Add free sample</span>
+                <img src="{{ sample_product.featured_image | image_url }}" alt="Swatch icon" width="32" height="32" />
+            </div>
+        {%- endform -%}
+    </sample-swatch>
+{% endif %}
+
+<style>
+    .sample-swatch {
+        position: absolute !important;
+    }
+
+    .sample-swatch::after, .sample-swatch::before {
+        display: none;
+    }
+</style>

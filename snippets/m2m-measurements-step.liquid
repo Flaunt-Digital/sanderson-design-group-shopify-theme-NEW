@@ -1,0 +1,100 @@
+  <div id="m2m-step-measurements" class="m2m-step hidden" data-step="{{ step_num }}">
+    <div class="m2m-content">
+      {% if section.settings.measurements_help != blank %}
+        <span class="help-icon">i</span>
+        <div class="help-content">{{ section.settings.measurements_help }}</div>
+      {% endif %}
+
+      <h3>
+        Size
+        <select name="measurement-unit" id="measurement-unit" onchange="swapMeasurementUnit();">
+          <option value="cm">cm</option>
+          <option value="inch">inch</option>
+        </select>
+      </h3>
+
+      <p>Enter your width and drop measurements.</p>
+
+      <div class="button-inputs-group">
+        <label for="width">Track/Pole Width</label>
+
+        <div class="button-inputs">
+          <button class="decrement">-</button>
+
+          <input type="number" name="width" id="width" 
+          value="{{ section.settings['min_width_curtains'] }}" 
+          data-min-cm="{{ section.settings['min_width_curtains'] }}" 
+          min="{{ section.settings['min_width_curtains'] }}" 
+          data-max-cm="{{ section.settings['max_width_curtains'] }}"
+          max="{{ section.settings['max_width_curtains'] }}" 
+          class="type-specific curtains-only ignore-js" />
+
+          <input type="number" name="width" id="width" 
+          value="{{ section.settings['min_width_blinds'] }}" 
+          data-min-cm="{{ section.settings['min_width_blinds'] }}" 
+          min="{{ section.settings['min_width_blinds'] }}" 
+          data-max-cm="{{ section.settings['max_width_blinds'] }}"
+          max="{{ section.settings['max_width_blinds'] }}" 
+          class="type-specific blinds-only ignore-js" />
+
+          <button class="increment">+</button>
+        </div>
+      </div>
+
+      <div class="button-inputs-group">
+        <label for="height">Finished Drop</label>
+
+        <div class="button-inputs">
+          <button class="decrement">-</button>
+
+          <input type="number" name="height" id="height" 
+          value="{{ section.settings['min_height_curtains'] }}" 
+          data-min-cm="{{ section.settings['min_height_curtains'] }}" 
+          min="{{ section.settings['min_height_curtains'] }}" 
+          data-max-cm="{{ section.settings['max_height_curtains'] }}"
+          max="{{ section.settings['max_height_curtains'] }}" 
+          class="type-specific curtains-only ignore-js" />
+
+          <input type="number" name="height" id="height" 
+          value="{{ section.settings['min_height_blinds'] }}" 
+          data-min-cm="{{ section.settings['min_height_blinds'] }}" 
+          min="{{ section.settings['min_height_blinds'] }}" 
+          data-max-cm="{{ section.settings['max_height_blinds'] }}"
+          max="{{ section.settings['max_height_blinds'] }}" 
+          class="type-specific blinds-only ignore-js" />
+
+          <button class="increment">+</button>
+        </div>
+      </div>
+
+      <div class="type-specific blinds-only">
+        <p>Select the fitting style you would like.</p>
+        <div class="radio-group">
+          <div class="radio-option">
+            <label for="exact">Exact</label>
+            <input type="radio" name="fitting" id="exact" value="Exact" checked />
+          </div>
+
+          <div class="radio-option">
+            <label for="recess">Recess</label>
+            <input type="radio" name="fitting" id="recess" value="Recess" />
+          </div>
+        </div>
+      </div>
+
+      <div class="type-specific curtains-only">
+        <p>Select if you need a single curtain or a pair of curtains.</p>
+        <div class="radio-group">
+          <div class="radio-option">
+            <label for="pair">Pair</label>
+            <input type="radio" name="pair-or-single" id="pair" value="Pair" checked />
+          </div>
+
+          <div class="radio-option">
+            <label for="single">Single</label>
+            <input type="radio" name="pair-or-single" id="single" value="Single" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

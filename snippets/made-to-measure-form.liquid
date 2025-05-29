@@ -1,0 +1,305 @@
+<div class="m2m-price-wrapper">
+    {% if customer.metafields.b2b.price_multiplier %}
+        {% assign multiplier_price = product.first_available_variant.price | times: customer.metafields.b2b.price_multiplier | round: 2 %}
+        <span class="m2m-curtain-price m2m-from-price price-item {% if customer.metafields.b2b.price_toggle == 'Off' %} hide-pricing{% endif %}"{% if product.first_available_variant.price == 0 %} style="display: none;"{% endif %}>From <span class="pricing" data-price="{{ product.first_available_variant.price }}">{{ multiplier_price | money }}</span></span>
+    {% else %}
+        <span class="m2m-curtain-price m2m-from-price price-item {% if customer.metafields.b2b.price_toggle == 'Off' %} hide-pricing{% endif %}"{% if product.first_available_variant.price == 0 %} style="display: none;"{% endif %}>From <span class="pricing" data-price="{{ product.first_available_variant.price }}">{{ product.first_available_variant.price | money }}</span></span>
+    {% endif %}
+    <span class="m2m-curtain-price m2m-calculated-price price-item{% if customer.metafields.b2b.price_toggle == 'Off' %} hide-pricing{% endif %}" data-price=""></span>
+    {% assign price_multiplier = customer.metafields.b2b.price_multiplier | round: 2 %}
+    {% if price_multiplier > 1 %}
+        <span class="price-type">Retail Price (Inc. VAT)</span>
+    {% else %}
+        <span class="price-type">Trade Price (Ex. VAT)</span>
+    {% endif %}
+</div>
+<div class="m2m-form-wrapper m2m-calculate-price">
+    <div class="m2m-tabs">
+        <div class="tab-headings">
+            <div class="tab-heading active-tab" data-bind="{{ product.id }}-curtains">
+                <h4>Curtains</h4>
+            </div>
+            <div class="tab-heading" data-bind="{{ product.id }}-blinds">
+                <h4>Roman Blinds</h4>
+            </div>
+        </div>
+        <div class="tab-content">
+            <div class="m2m-tab active-tab" data-bind="{{ product.id }}-curtains">
+                <meta class="m2m-min-max" data-min-width="{{ shop.metafields.made_to_measure.min_width }}" data-max-width="{{ shop.metafields.made_to_measure.max_width }}" data-min-drop="{{ shop.metafields.made_to_measure.min_drop }}" data-max-drop="{{ shop.metafields.made_to_measure.max_drop }}">
+                <form class="m2mCalculatePriceForm">
+                    {% for tag in product.tags %}
+                        {% if tag contains 'm2m_fabric' %}
+                            <input class="m2mFabric" name="fabric" type="hidden" value="{{ tag | remove: 'm2m_fabric:' | replace: '_', ' ' | upcase }}" readonly />
+                        {% endif %}
+                    {% endfor %}
+                    <input class="m2mProductId" name="productId" type="hidden" value="{{ product.id }}" readonly />
+                    <input class="m2mProductType" name="productType" type="hidden" value="curtains" readonly />
+                    <div class="m2m-curtain-size">
+                        {{ shop.metafields.made_to_measure.calculator_intro_text }}
+                    </div>
+                    <div class="m2m-curtain-size">
+                        <div class="curtain-width">
+                            <label>Width</label>
+                            <input class="m2mWidth ignore-js" name="width" type="number" inputmode="numeric" min="{{ shop.metafields.made_to_measure.min_width }}" max="{{ shop.metafields.made_to_measure.max_width }}" value="" />
+                        </div>
+                        <div class="curtain-drop">
+                            <label>Drop</label>
+                            <input class="m2mDrop ignore-js" name="drop" type="number" inputmode="numeric" min="{{ shop.metafields.made_to_measure.min_drop }}" max="{{ shop.metafields.made_to_measure.max_drop }}" value="" />
+                        </div>
+                        <div class="measurement-units">
+                            <select class="m2mUnits" name="units">
+                                <option value="cm">CM</option>
+                                <option value="in">IN</option>
+                            </select>
+                        </div>
+                        <div class="calculate-price">
+                            <a href="javascript:void(0);" name="calculate" class="m2mCalculatePrice button"
+                            include-types="Double Rolled Eyelets,Pencil Pleat,Double Pinch Pleat,Triple Pinch Pleat"
+                            include-linings="BLACKOUT,THERMAL BLACKOUT,COTTON SATEEN (STANDARD),BONDED INTERLINING,UNLINED"
+                            >{{ shop.metafields.made_to_measure.calculate_button_text }}</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="m2m-tab" data-bind="{{ product.id }}-blinds">
+                <meta class="m2m-min-max" data-min-width="{{ shop.metafields.made_to_measure.blinds_min_width }}" data-max-width="{{ shop.metafields.made_to_measure.blinds_max_width }}" data-min-drop="{{ shop.metafields.made_to_measure.blinds_min_drop }}" data-max-drop="{{ shop.metafields.made_to_measure.blinds_max_drop }}">
+                <form class="m2mCalculatePriceForm">
+                    {% for tag in product.tags %}
+                        {% if tag contains 'm2m_fabric' %}
+                            <input class="m2mFabric" name="fabric" type="hidden" value="{{ tag | remove: 'm2m_fabric:' | replace: '_', ' ' | upcase }}" readonly />
+                        {% endif %}
+                    {% endfor %}
+                    <input class="m2mProductId" name="productId" type="hidden" value="{{ product.id }}" readonly />
+                    <input class="m2mProductType" name="productType" type="hidden" value="blinds" readonly />
+                    <div class="m2m-curtain-size">
+                        {% if shop.metafields.made_to_measure.calculator_intro_text__blinds %}
+                            {{ shop.metafields.made_to_measure.calculator_intro_text__blinds }}
+                        {% else %}
+                            {{ shop.metafields.made_to_measure.calculator_intro_text }}
+                        {% endif %}
+                    </div>
+                    <div class="m2m-curtain-size">
+                        <div class="curtain-width">
+                            <label>Width</label>
+                            <input class="m2mWidth ignore-js" name="width" type="number" inputmode="numeric" min="{{ shop.metafields.made_to_measure.blinds_min_width }}" max="{{ shop.metafields.made_to_measure.blinds_max_width }}" value="" />
+                        </div>
+                        <div class="curtain-drop">
+                            <label>Drop</label>
+                            <input class="m2mDrop ignore-js" name="drop" type="number" inputmode="numeric" min="{{ shop.metafields.made_to_measure.blinds_min_drop }}" max="{{ shop.metafields.made_to_measure.blinds_max_drop }}" value="" />
+                        </div>
+                        <div class="measurement-units">
+                            <select class="m2mUnits" name="units">
+                                <option value="cm">CM</option>
+                                <option value="in">IN</option>
+                            </select>
+                        </div>
+                        <div class="calculate-price">
+                            <a href="javascript:void(0);" name="calculate" class="m2mCalculatePrice button"
+                            include-types="Roman Blinds"
+                            include-linings="BLACKOUT,THERMAL BLACKOUT,BONDED INTERLINING,COTTON SATEEN (STANDARD)"
+                            >{{ shop.metafields.made_to_measure.calculate_button_text }}</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="size-info">
+        <p><span class="size-info-icon"><i class="fa fa-info-circle"></i></span> Width: <span class="m2mMinWidth">{{ shop.metafields.made_to_measure.min_width }}cm</span>-<span class="m2mMaxWidth">{{ shop.metafields.made_to_measure.max_width }}cm</span>, Drop: <span class="m2mMinDrop">{{ shop.metafields.made_to_measure.min_drop }}cm</span>-<span class="m2mMaxDrop">{{ shop.metafields.made_to_measure.max_drop }}cm</span></p>
+    </div>
+    <div class="further-info">
+        <div class="measuring-guides">
+            {{ shop.metafields.made_to_measure.measurement_guide_text }}
+        </div>
+        <div class="lead-times">
+            {{ shop.metafields.made_to_measure.lead_time_text }}
+        </div>
+    </div>
+</div>
+
+<div class="m2m-form-wrapper m2m-add-to-cart blinds-active">
+    <form class="m2mAddToCartForm" data-dropdowns="false">
+        <div class="curtain-option-wrapper active">
+            <div class="curtain-heading-type curtain-options--dropdown">
+                <select class="m2mHeading">
+                </select>
+            </div>
+            <label>Heading Type <i class="fa-solid fa-circle-info"></i></label>
+            <div class="m2mHeadingIllustrated curtain-heading-type curtain-options--illustrated"></div>
+            <div class="curtain-option--description visible">
+                {{ shop.metafields.made_to_measure.heading_description_text }}
+            </div>
+        </div>
+
+        <div class="curtain-option-wrapper">
+            <div class="curtain-eyelet-colour curtain-options--dropdown">
+                <select class="m2mEyelets">
+                </select>
+            </div>
+            <label>Eyelet Colour <i class="fa-solid fa-circle-info"></i></label>
+            <div class="m2mEyeletsIllustrated curtain-heading-type curtain-options--illustrated"></div>
+            <div class="curtain-option--description">
+                {{ shop.metafields.made_to_measure.eyelet_description_text }}
+            </div>
+        </div>
+
+        <div class="curtain-option-wrapper">
+            <div class="curtain-lining-type curtain-options--dropdown">
+                <select class="m2mLining">
+                </select>
+            </div>
+            <label>Lining Type <i class="fa-solid fa-circle-info"></i></label>
+            <div class="m2mLiningIllustrated curtain-lining-type curtain-options--illustrated"></div>
+            <div class="curtain-option--description curtains-only-description">
+                {{ shop.metafields.made_to_measure.lining_description_text }}
+            </div>
+
+            <div class="curtain-option--description blinds-only-description">
+                {% if shop.metafields.made_to_measure.lining_description_text_blinds %}
+                    {{ shop.metafields.made_to_measure.lining_description_text_blinds }}
+                {% else %}
+                    {{ shop.metafields.made_to_measure.lining_description_text }}
+                {% endif %}
+            </div>            
+        </div>
+
+        <div class="curtain-option-wrapper blinds-option">
+            <label>Fitting Option <i class="fa-solid fa-circle-info"></i></label>
+            <div class="blinds-fitting-option curtain-options--dropdown">
+                <select id="m2mFittings">
+                </select>
+            </div>                
+            <div id="m2mFittingsIllustrated" class="blinds-fitting-option curtain-options--illustrated"></div>
+            <div class="curtain-option--description">
+                {{ shop.metafields.made_to_measure.fitting_description_text }}
+            </div>
+        </div>
+
+        <div class="curtain-option-wrapper blinds-option">
+            <label>Controls Position <i class="fa-solid fa-circle-info"></i></label>
+            <div class="blinds-fixings-position curtain-options--dropdown">
+                <select id="m2mFixings">
+                </select>
+            </div>                
+            <div id="m2mFixingsIllustrated" class="blinds-fixings-position curtain-options--illustrated"></div>
+            <div class="curtain-option--description">
+                {{ shop.metafields.made_to_measure.fixing_description_text }}
+            </div>
+        </div>     
+
+        <div class="curtain-option-wrapper">
+            <label>Cushions <i class="fa-solid fa-circle-info"></i></label>
+            <div class="curtain-cushion-options curtain-options--radio-buttons">
+                <div class="radio-item">
+                    <div class="radio-wrapper">
+                        <span class="radio-btn" data-value="Yes"></span>
+                    </div>
+                    <label>Yes</label>
+                </div>
+                <div class="radio-item">
+                    <div class="radio-wrapper">
+                        <span class="radio-btn" data-value="No"></span>
+                    </div>
+                    <label>No</label>
+                </div>
+            </div>
+            <div class="curtain-option--error">
+                <p>Please choose whether you would like to add cushions</p>
+            </div>
+            <div class="curtain-cushion-options curtain-options--dropdown">
+                <select class="m2mCushions" data-option-selected="no" data-option="no">
+                </select>
+            </div>
+            <div class="curtain-option--description">
+                {{ shop.metafields.made_to_measure.cushions_description_text }}
+            </div>
+        </div>
+
+        <div class="curtain-option-wrapper">
+            <label>Tiebacks <i class="fa-solid fa-circle-info"></i></label>
+            <div class="curtain-tieback-options curtain-options--radio-buttons">
+                <div class="radio-item">
+                    <div class="radio-wrapper">
+                        <span class="radio-btn" data-value="Yes"></span>
+                    </div>
+                    <label>Yes</label>
+                </div>
+                <div class="radio-item">
+                    <div class="radio-wrapper">
+                        <span class="radio-btn" data-value="No"></span>
+                    </div>
+                    <label>No</label>
+                </div>
+            </div>
+            <div class="curtain-option--error">
+                <p>Please choose whether you would like to add tiebacks</p>
+            </div>
+            <div class="curtain-tiebacks-options curtain-options--dropdown">
+                <select class="m2mTiebacks" data-option-selected="no" data-option="no">
+                </select>
+            </div>
+            <div class="curtain-option--description">
+                {{ shop.metafields.made_to_measure.tiebacks_description_text }}
+            </div>
+        </div>
+
+        <div class="m2m-price-wrapper">
+            <span class="m2m-curtain-price m2m-calculated-price price-item{% if customer.metafields.b2b.price_toggle == 'Off' %} hide-pricing{% endif %}" data-price=""></span>
+            {% if price_multiplier > 1 %}
+                <span class="price-type">Retail Price (Inc. VAT)</span>
+            {% else %}
+                <span class="price-type">Trade Price (Ex. VAT)</span>
+            {% endif %}
+        </div>
+
+        <div class="m2m-cart-button-wrapper">
+            <div class="curtain-quantity">
+                <label>Quantity</label>
+                <input type="number" class="m2mQuantity ignore-js" name="quantity" value="1" />
+            </div>
+
+            <div class="add-to-cart">
+                <button id="m2mAddToCart" class="product-form__submit button button--full-width">
+                    <span>Add to bag</span>
+                    <div class="loading-overlay__spinner hidden">
+                        <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                            <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                        </svg>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script id="m2m-asset-json" type="application/json">
+    {
+        "heading_images": [{% for image in shop.metafields.made_to_measure.heading_images %}
+            {
+                "img_src": {{ image.src | json }}
+            }{% unless forloop.last %},{% endunless %}
+        {% endfor %}],
+        "eyelet_images": [{% for image in shop.metafields.made_to_measure.eyelet_images %}
+            {
+                "img_src": {{ image.src | json }}
+            }{% unless forloop.last %},{% endunless %}
+        {% endfor %}],
+        "lining_images": [{% for image in shop.metafields.made_to_measure.lining_images %}
+            {
+                "img_src": {{ image.src | json }}
+            }{% unless forloop.last %},{% endunless %}
+        {% endfor %}],
+        "fixing_images": [{% for image in shop.metafields.made_to_measure.fixing_images %}
+            {
+                "img_src": {{ image.src | json }}
+            }{% unless forloop.last %},{% endunless %}
+        {% endfor %}],
+        "fitting_images": [{% for image in shop.metafields.made_to_measure.fitting_images %}
+            {
+                "img_src": {{ image.src | json }}
+            }{% unless forloop.last %},{% endunless %}
+        {% endfor %}]
+    }
+</script>
