@@ -235,6 +235,14 @@
       {% render 'header-search', input_id: 'Search-In-Modal' %}
 
       {%- if shop.customer_accounts_enabled -%}
+        {%- if customer -%}
+          <span class="settings-icon">
+            <a id="show-price-settings">
+              <i class="fa fa-cog"></i>
+            </a>
+          </span>
+        {%- endif -%}
+
         <a
           href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
           class="header__icon header__icon--account link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
