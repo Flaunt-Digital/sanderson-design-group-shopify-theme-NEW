@@ -2452,7 +2452,7 @@ input[type='checkbox'] {
 
 .header__heading-logo {
   height: auto;
-  max-width: 100%;
+  width: 90px;
 }
 
 .header__heading-logo-wrapper {
