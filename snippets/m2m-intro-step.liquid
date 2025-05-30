@@ -32,10 +32,6 @@
     <div id="m2m-description" class="hidden-sm">{{ product.description }}</div>
 
     {% if customer %}
-      <div id="more-info" class="hidden-sm">
-        {% render 'product-accordion' %}
-      </div>
-
       {% if m2m_product and m2m_fabric %}
         {% if m2m_type %}
           <button class="button m2m-next start-button" onclick="startCustomising('{{ m2m_type }}');">Start customising</button>
