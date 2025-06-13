@@ -316,6 +316,7 @@
       or template == 'customers/activate_account'
       or template == 'customers/reset_password'
       or request.path == '/challenge'
+      or request.design_mode
     -%}
       {%- if settings.cart_type == 'drawer' -%}
         {%- render 'cart-drawer' -%}
