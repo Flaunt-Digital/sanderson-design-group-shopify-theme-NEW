@@ -21,7 +21,7 @@
             "heading_size": "h2",
             "subheading": "Current lead time: 4-6 weeks",
             "button_label": "START YOUR ORDER",
-            "link": "shopify://collections/all-products",
+            "link": "shopify://pages/our-brands",
             "button_style_secondary": false,
             "show_text_box": true,
             "box_align": "middle-center",
@@ -34,7 +34,6 @@
       "block_order": [
         "slide_DFUmf3"
       ],
-      "name": "t:sections.slideshow.presets.name",
       "settings": {
         "layout": "full_bleed",
         "slide_height": "adapt_image",
@@ -161,7 +160,7 @@
           "type": "button",
           "settings": {
             "button_label": "START YOUR ORDER",
-            "button_link": "shopify://collections/all-products",
+            "button_link": "shopify://pages/our-brands",
             "button_style_secondary": false,
             "button_label_2": "",
             "button_link_2": "",
@@ -172,7 +171,6 @@
       "block_order": [
         "button_XfNzgM"
       ],
-      "name": "t:sections.rich-text.presets.name",
       "settings": {
         "desktop_content_position": "center",
         "content_alignment": "center",
