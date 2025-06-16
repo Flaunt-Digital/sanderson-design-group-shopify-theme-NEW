@@ -541,3 +541,7 @@ body.product-made-to-measure.gridlock .row {
 .colour-choice-container .colour-choice .colour-option.selected span {
   text-decoration: underline;
 }
+
+.vendor {
+  margin-bottom: 1rem;
+}

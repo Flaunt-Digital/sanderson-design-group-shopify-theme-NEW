@@ -17,26 +17,42 @@
 
   <div class="m2m-content">
     <div class="m2m-title">
-      <h1>{{ product.title | escape }}</h1>
+      <div>
+        <span class="visually-hidden">{{ 'accessibility.vendor' | t }}</span>
+        <div class="caption-with-letter-spacing light vendor">{{ product.vendor }}</div>
+        <h1>{{ product.title | escape }}</h1>
+      </div>
       {% if customer %}
         <p class="price {% if customer.metafields.b2b.price_toggle == 'Off' %} hide-pricing{% endif %}">
-          From <span class="pricing"  data-price="{{ product.first_available_variant.price }}">{{ product.first_available_variant.price | money }}</span>
+          From
+          <span class="pricing" data-price="{{ product.first_available_variant.price }}">
+            {{- product.first_available_variant.price | money -}}
+          </span>
           <span class="price-type">Trade Price (Ex. VAT)</span>
         </p>
       {% endif %}
     </div>
 
     <p class="hidden-lg">
-      <a href="javascript:void(0);" class="link link--text" onclick="document.getElementById('m2m-description').classList.toggle('hidden-sm'); document.getElementById('more-info').classList.toggle('hidden-sm');">Product details &#9207;</a>
+      <a
+        href="javascript:void(0);"
+        class="link link--text"
+        onclick="document.getElementById('m2m-description').classList.toggle('hidden-sm'); document.getElementById('more-info').classList.toggle('hidden-sm');"
+        >Product details &#9207;</a
+      >
     </p>
     <div id="m2m-description" class="hidden-sm">{{ product.description }}</div>
 
     {% if customer %}
       {% if m2m_product and m2m_fabric %}
         {% if m2m_type %}
-          <button class="button m2m-next start-button" onclick="startCustomising('{{ m2m_type }}');">Start customising</button>
+          <button class="button m2m-next start-button" onclick="startCustomising('{{ m2m_type }}');">
+            Start customising
+          </button>
         {% else %}
-          <button class="button m2m-next start-button" onclick="startCustomising('curtains');">Customise Curtains</button>
+          <button class="button m2m-next start-button" onclick="startCustomising('curtains');">
+            Customise Curtains
+          </button>
           <button class="button m2m-next start-button" onclick="startCustomising('blinds');">Customise Blinds</button>
         {% endif %}
       {% else %}
@@ -44,10 +60,13 @@
           <p class="error">There is a problem with this product, please try again later.</p>
         </div>
 
-        <script>console.error('Make sure tags are set for m2m_product:yes and m2m_fabric:abcdef');</script>
+        <script>
+          console.error('Make sure tags are set for m2m_product:yes and m2m_fabric:abcdef');
+        </script>
       {% endif %}
     {% else %}
-      {% render 'request-access' %}<br />
+      {% render 'request-access' -%}
+      <br>
     {% endif %}
   </div>
 </div>
