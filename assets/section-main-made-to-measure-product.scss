@@ -28,7 +28,8 @@ body.product-made-to-measure {
     }
 
     .price {
-        display: block;
+        display: flex;
+        flex-direction: column;
     }
 
     .hidden {
@@ -369,6 +370,7 @@ body.product-made-to-measure {
             .m2m-title {
                 display: flex;
                 margin: 1rem 0 2rem 0;
+                justify-content: space-between;
 
                 h1 {
                     font-size: 2rem;

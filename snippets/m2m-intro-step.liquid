@@ -23,13 +23,15 @@
         <h1>{{ product.title | escape }}</h1>
       </div>
       {% if customer %}
-        <p class="price {% if customer.metafields.b2b.price_toggle == 'Off' %} hide-pricing{% endif %}">
-          From
-          <span class="pricing" data-price="{{ product.first_available_variant.price }}">
-            {{- product.first_available_variant.price | money -}}
-          </span>
+        <div class="price {% if customer.metafields.b2b.price_toggle == 'Off' %} hide-pricing{% endif %}">
+          <div>
+            <span>From</span>
+            <span class="pricing" data-price="{{ product.first_available_variant.price }}">
+              {{- product.first_available_variant.price | money -}}
+            </span>
+          </div>
           <span class="price-type">Trade Price (Ex. VAT)</span>
-        </p>
+        </div>
       {% endif %}
     </div>
 

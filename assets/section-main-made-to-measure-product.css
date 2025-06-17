@@ -21,7 +21,8 @@ body.product-made-to-measure.gridlock .row {
   padding: 0.25rem;
 }
 .madetomeasureproduct .price {
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 .madetomeasureproduct .hidden {
   display: none !important;
@@ -310,6 +311,7 @@ body.product-made-to-measure.gridlock .row {
 .madetomeasureproduct #m2m-step-intro .m2m-content .m2m-title {
   display: flex;
   margin: 1rem 0 2rem 0;
+  justify-content: space-between;
 }
 .madetomeasureproduct #m2m-step-intro .m2m-content .m2m-title h1 {
   font-size: 2rem;
